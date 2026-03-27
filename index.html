@@ -560,7 +560,9 @@ font-display:swap;font-style:normal;font-weight:600;font-stretch:normal;
       await document.fonts.ready;
       const PAD = 64;
 
-      // Draw text with per-line black box (mirrors box-decoration-break: clone)
+      // Draw text with per-line black box (mirrors CSS box-decoration-break: clone).
+      // In CSS, inline padding extends BEYOND the line-height, so adjacent boxes overlap.
+      // We replicate this by making each box span lineH + 2*padY, giving 2*padY overlap.
       function drawBoxedText(text, fontSpec, textColor, boxColor, startX, startY, maxW, lineH, padX, padY) {
         ctx.font = fontSpec;
         ctx.textBaseline = 'alphabetic';
@@ -568,11 +570,19 @@ font-display:swap;font-style:normal;font-weight:600;font-stretch:normal;
         const m = ctx.measureText('Mg');
         const asc  = m.actualBoundingBoxAscent  || lineH * 0.75;
         const desc = m.actualBoundingBoxDescent || lineH * 0.18;
+        // half-leading: space added above/below the glyph area to fill lineH
+        const halfLead = Math.max(0, (lineH - asc - desc) / 2);
         let cy = startY;
         for (const line of lines) {
           const tw = ctx.measureText(line).width;
           ctx.fillStyle = boxColor;
-          ctx.fillRect(startX - padX, cy - asc - padY, tw + padX * 2, asc + desc + padY * 2);
+          // Box covers full lineH + padY on each side → overlaps with neighbours
+          ctx.fillRect(
+            startX - padX,
+            cy - asc - halfLead - padY,
+            tw + padX * 2,
+            lineH + padY * 2
+          );
           ctx.fillStyle = textColor;
           ctx.fillText(line, startX, cy);
           cy += lineH;
