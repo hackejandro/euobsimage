@@ -363,8 +363,8 @@ font-display:swap;font-style:normal;font-weight:600;font-stretch:normal;
 
   async function fetchViaProxy(url) {
     const proxies = [
+      `https://images.weserv.nl/?url=${encodeURIComponent(url)}`,
       `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-      `https://corsproxy.io/?${encodeURIComponent(url)}`,
     ];
     for (const proxyUrl of proxies) {
       try {
