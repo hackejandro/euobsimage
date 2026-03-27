@@ -74,7 +74,7 @@ font-display:swap;font-style:normal;font-weight:600;font-stretch:normal;
     :root {
       --brand-orange:  rgb(240, 82, 60);
       --brand-navy:    rgb(0, 0, 32);
-      --font-serif:    'freight-text-pro', Lora, Georgia, serif;
+      --font-serif:    'freight-display-pro', 'freight-text-pro', Lora, Georgia, serif;
       --font-sans:     'Geist', Lato, system-ui, sans-serif;
     }
 
@@ -215,10 +215,10 @@ font-display:swap;font-style:normal;font-weight:600;font-stretch:normal;
 
     .card-bg {
       position: absolute; inset: 0;
-      background-size: cover;
-      background-position: 50% 50%;
-      background-repeat: no-repeat;
-      background-color: #1a1a1a;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: 50% 50%;
+      display: none;               /* hidden until src is set */
     }
 
     .card-gradient {
@@ -309,6 +309,10 @@ font-display:swap;font-style:normal;font-weight:600;font-stretch:normal;
         <label>Image URL</label>
         <input type="text" id="imageInput" placeholder="Paste or fetched automatically…" oninput="updateImageFromInput()">
       </div>
+      <div class="field">
+        <label>Logo image URL</label>
+        <input type="text" id="logoInput" placeholder="Paste PNG/SVG URL here…" oninput="updateLogo()">
+      </div>
       <div class="row-2">
         <div class="field">
           <label>Headline px</label>
@@ -337,7 +341,7 @@ font-display:swap;font-style:normal;font-weight:600;font-stretch:normal;
 
     <div id="cardWrapper">
       <div id="card">
-        <div class="card-bg" id="cardBg"></div>
+        <img class="card-bg" id="cardBg" src="" alt="">
         <div class="card-gradient"></div>
         <div class="card-body">
           <div class="card-section-wrap">
@@ -367,7 +371,7 @@ font-display:swap;font-style:normal;font-weight:600;font-stretch:normal;
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 
   function applyPan() {
-    cardBg.style.backgroundPosition = `${bgX}% ${bgY}%`;
+    cardBg.style.objectPosition = `${bgX}% ${bgY}%`;
   }
 
   cardWrapper.addEventListener('mousedown',  e => { isDragging=true; lastX=e.clientX; lastY=e.clientY; e.preventDefault(); });
@@ -404,13 +408,20 @@ font-display:swap;font-style:normal;font-weight:600;font-stretch:normal;
 
   function setImage(url) {
     currentImageUrl = url;
-    cardBg.style.backgroundImage = `url("${url}")`;
+    cardBg.src = url;
+    cardBg.style.display = 'block';
     resetPan();
   }
 
   function updateImageFromInput() {
     const url = document.getElementById('imageInput').value.trim();
     if (url) setImage(url);
+  }
+
+  function updateLogo() {
+    const url = document.getElementById('logoInput').value.trim();
+    if (!url) return;
+    document.querySelectorAll('.card-logo, .brand-logo').forEach(el => el.src = url);
   }
 
   // ── Fetch article ─────────────────────────────────────────────
@@ -482,9 +493,14 @@ font-display:swap;font-style:normal;font-weight:600;font-stretch:normal;
       transform:'none', overflow:'hidden',
     });
     const cloneBg = clone.querySelector('.card-bg');
-    if (cloneBg) {
-      cloneBg.style.backgroundPosition = `${bgX}% ${bgY}%`;
-      if (imageDataUrl) cloneBg.style.backgroundImage = `url("${imageDataUrl}")`;
+    if (cloneBg && imageDataUrl) {
+      cloneBg.style.display = 'block';
+      cloneBg.style.objectPosition = `${bgX}% ${bgY}%`;
+      await new Promise((res, rej) => {
+        cloneBg.onload  = res;
+        cloneBg.onerror = res; // resolve even on error so we still export
+        cloneBg.src = imageDataUrl;
+      });
     }
     document.body.appendChild(clone);
 
