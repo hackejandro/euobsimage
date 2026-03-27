@@ -459,7 +459,8 @@ font-display:swap;font-style:normal;font-weight:600;font-stretch:normal;
 
   function setImage(url) {
     currentImageUrl = url;
-    cardBg.src = url;
+    // Proxy through weserv.nl so the live preview loads even with hotlink protection
+    cardBg.src = `https://images.weserv.nl/?url=${encodeURIComponent(url)}`;
     cardBg.style.display = 'block';
     resetPan();
   }
@@ -540,8 +541,15 @@ font-display:swap;font-style:normal;font-weight:600;font-stretch:normal;
         }
       }
 
-      // Gradient overlay
-      const grad = ctx.createLinearGradient(0, 0, 0, H);
+      // Gradient overlay — matches CSS linear-gradient(160deg, ...)
+      const angleRad = 160 * Math.PI / 180;
+      const gdx = Math.sin(angleRad);          // ≈  0.342
+      const gdy = -Math.cos(angleRad);         // ≈  0.940
+      const halfLen = Math.abs(W / 2 * gdx) + Math.abs(H / 2 * gdy);
+      const grad = ctx.createLinearGradient(
+        W / 2 - gdx * halfLen, H / 2 - gdy * halfLen,
+        W / 2 + gdx * halfLen, H / 2 + gdy * halfLen
+      );
       grad.addColorStop(0,    'rgba(0,0,0,0.28)');
       grad.addColorStop(0.38, 'rgba(0,0,0,0.02)');
       grad.addColorStop(0.58, 'rgba(0,0,0,0.02)');
