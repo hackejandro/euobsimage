@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EUObserver Social Card Generator</title>
+
+  <!-- freight-text-pro via Typekit (works when page is served over HTTP) -->
+  <link rel="stylesheet" href="https://use.typekit.net/sdk5rbj.css">
+
+  <!-- Geist (EUObserver sans) + Lora fallback from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Direct @font-face declarations — fallback if Typekit kit is domain-restricted -->
+  <style>
+/*
+ * The Typekit service used to deliver this font or fonts for use on websites
+ * is provided by Adobe and is subject to these Terms of Use
+ * http://www.adobe.com/products/eulas/tou_typekit. For font license
+ * information, see the list below.
+ *
+ * freight-text-pro:
+ *   - http://typekit.com/eulas/00000000000000007735d61f
+ *   - http://typekit.com/eulas/00000000000000007735d626
+ *   - http://typekit.com/eulas/00000000000000007735d62a
+ *   - http://typekit.com/eulas/00000000000000007735d630
+ *   - http://typekit.com/eulas/000000000000000077359fcb
+ *
+ * © 2009-2026 Adobe Systems Incorporated. All Rights Reserved.
+ */
+/*{"last_published":"2026-01-25 19:56:53 UTC"}*/
+
+@import url("https://p.typekit.net/p.css?s=1&k=sdk5rbj&ht=tk&f=13464.13465.13466.13467.13472&a=84107799&app=typekit&e=css");
+
+@font-face {
+font-family:"freight-text-pro";
+src:url("https://use.typekit.net/af/a9e142/00000000000000007735d61f/31/l?primer=0c3d50e3ef3412cef9e76ae9541a8a04590cd15a498804b2eb27ad5118ab3b47&fvd=n4&v=3") format("woff2"),url("https://use.typekit.net/af/a9e142/00000000000000007735d61f/31/d?primer=0c3d50e3ef3412cef9e76ae9541a8a04590cd15a498804b2eb27ad5118ab3b47&fvd=n4&v=3") format("woff"),url("https://use.typekit.net/af/a9e142/00000000000000007735d61f/31/a?primer=0c3d50e3ef3412cef9e76ae9541a8a04590cd15a498804b2eb27ad5118ab3b47&fvd=n4&v=3") format("opentype");
+font-display:swap;font-style:normal;font-weight:400;font-stretch:normal;
+}
+
+@font-face {
+font-family:"freight-text-pro";
+src:url("https://use.typekit.net/af/aa0b66/00000000000000007735d626/31/l?primer=0c3d50e3ef3412cef9e76ae9541a8a04590cd15a498804b2eb27ad5118ab3b47&fvd=i4&v=3") format("woff2"),url("https://use.typekit.net/af/aa0b66/00000000000000007735d626/31/d?primer=0c3d50e3ef3412cef9e76ae9541a8a04590cd15a498804b2eb27ad5118ab3b47&fvd=i4&v=3") format("woff"),url("https://use.typekit.net/af/aa0b66/00000000000000007735d626/31/a?primer=0c3d50e3ef3412cef9e76ae9541a8a04590cd15a498804b2eb27ad5118ab3b47&fvd=i4&v=3") format("opentype");
+font-display:swap;font-style:italic;font-weight:400;font-stretch:normal;
+}
+
+@font-face {
+font-family:"freight-text-pro";
+src:url("https://use.typekit.net/af/9e97d3/00000000000000007735d62a/31/l?primer=0c3d50e3ef3412cef9e76ae9541a8a04590cd15a498804b2eb27ad5118ab3b47&fvd=n7&v=3") format("woff2"),url("https://use.typekit.net/af/9e97d3/00000000000000007735d62a/31/d?primer=0c3d50e3ef3412cef9e76ae9541a8a04590cd15a498804b2eb27ad5118ab3b47&fvd=n7&v=3") format("woff"),url("https://use.typekit.net/af/9e97d3/00000000000000007735d62a/31/a?primer=0c3d50e3ef3412cef9e76ae9541a8a04590cd15a498804b2eb27ad5118ab3b47&fvd=n7&v=3") format("opentype");
+font-display:swap;font-style:normal;font-weight:700;font-stretch:normal;
+}
+
+@font-face {
+font-family:"freight-text-pro";
+src:url("https://use.typekit.net/af/2756d5/00000000000000007735d630/31/l?primer=0c3d50e3ef3412cef9e76ae9541a8a04590cd15a498804b2eb27ad5118ab3b47&fvd=i7&v=3") format("woff2"),url("https://use.typekit.net/af/2756d5/00000000000000007735d630/31/d?primer=0c3d50e3ef3412cef9e76ae9541a8a04590cd15a498804b2eb27ad5118ab3b47&fvd=i7&v=3") format("woff"),url("https://use.typekit.net/af/2756d5/00000000000000007735d630/31/a?primer=0c3d50e3ef3412cef9e76ae9541a8a04590cd15a498804b2eb27ad5118ab3b47&fvd=i7&v=3") format("opentype");
+font-display:swap;font-style:italic;font-weight:700;font-stretch:normal;
+}
+
+@font-face {
+font-family:"freight-text-pro";
+src:url("https://use.typekit.net/af/390dad/000000000000000077359fcb/31/l?primer=0c3d50e3ef3412cef9e76ae9541a8a04590cd15a498804b2eb27ad5118ab3b47&fvd=n6&v=3") format("woff2"),url("https://use.typekit.net/af/390dad/000000000000000077359fcb/31/d?primer=0c3d50e3ef3412cef9e76ae9541a8a04590cd15a498804b2eb27ad5118ab3b47&fvd=n6&v=3") format("woff"),url("https://use.typekit.net/af/390dad/000000000000000077359fcb/31/a?primer=0c3d50e3ef3412cef9e76ae9541a8a04590cd15a498804b2eb27ad5118ab3b47&fvd=n6&v=3") format("opentype");
+font-display:swap;font-style:normal;font-weight:600;font-stretch:normal;
+}
+
+.tk-freight-text-pro { font-family: "freight-text-pro",serif; }
+
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* EUObserver brand tokens (from wp-styles.css) */
+    :root {
+      --brand-orange:  rgb(240, 82, 60);
+      --brand-navy:    rgb(0, 0, 32);
+      --font-serif:    'freight-display-pro', 'freight-text-pro', Lora, Georgia, serif;
+      --font-sans:     'Geist', Lato, system-ui, sans-serif;
+    }
+
+    body {
+      background: #0e0e0e;
+      color: #e8e8e8;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      min-height: 100vh;
+    }
+
+    .layout { display: flex; min-height: 100vh; }
+
+    /* ── Sidebar ─────────────────────────────────────── */
+    .sidebar {
+      width: 272px;
+      flex-shrink: 0;
+      background: #141414;
+      border-right: 1px solid #1e1e1e;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      overflow-y: auto;
+    }
+
+    .brand-logo {
+      height: 28px;
+      width: auto;
+      display: block;
+    }
+    .brand-sub {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #333;
+      margin-top: 4px;
+    }
+
+    hr { border: none; border-top: 1px solid #1e1e1e; }
+
+    .section-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #3a3a3a;
+      margin-bottom: 10px;
+    }
+
+    .field { margin-bottom: 12px; }
+    .field label {
+      display: block;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #484848;
+      margin-bottom: 5px;
+    }
+
+    input[type="url"],
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      display: block; width: 100%;
+      background: #1a1a1a;
+      border: 1px solid #242424;
+      border-radius: 3px;
+      color: #ddd;
+      padding: 7px 9px;
+      font-size: 12px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.12s;
+    }
+    input:focus, textarea:focus {
+      border-color: rgba(240,82,60,0.4);
+      box-shadow: 0 0 0 2px rgba(240,82,60,0.1);
+    }
+    textarea { height: 88px; resize: vertical; line-height: 1.5; }
+    .row-2 { display: flex; gap: 8px; }
+    .row-2 .field { flex: 1; }
+
+    .btn {
+      display: block; width: 100%;
+      padding: 9px 12px;
+      border: none; border-radius: 3px;
+      font-size: 12px; font-weight: 600;
+      cursor: pointer; text-align: center;
+      margin-bottom: 6px;
+      transition: background 0.1s, opacity 0.1s;
+      letter-spacing: 0.02em;
+    }
+    .btn:last-child { margin-bottom: 0; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-red   { background: var(--brand-orange); color: #fff; }
+    .btn-red:hover:not(:disabled) { background: rgb(220,62,42); }
+    .btn-ghost { background: #1e1e1e; color: #888; border: 1px solid #2a2a2a; }
+    .btn-ghost:hover:not(:disabled) { background: #242424; color: #aaa; }
+    .btn-green { background: #162b1f; color: #4ade80; border: 1px solid #1e3a2a; }
+    .btn-green:hover:not(:disabled) { background: #1e3a28; }
+
+    .status {
+      font-size: 11px; color: #444; min-height: 16px; line-height: 1.4; margin-top: 4px;
+    }
+    .status.ok  { color: #4ade80; }
+    .status.err { color: #f87171; }
+    .tip { font-size: 11px; color: #333; line-height: 1.6; }
+
+    /* ── Feed list ─────────────────────────────────── */
+    .feed-list { display: flex; flex-direction: column; gap: 2px; }
+    .feed-item {
+      display: flex; gap: 8px; align-items: start;
+      padding: 7px 8px; border-radius: 3px;
+      cursor: pointer; transition: background 0.1s;
+      border: 1px solid transparent;
+    }
+    .feed-item:hover { background: #1a1a1a; border-color: #242424; }
+    .feed-item.active { background: #1e1412; border-color: rgba(240,82,60,0.3); }
+    .feed-thumb {
+      width: 44px; height: 44px; border-radius: 2px;
+      object-fit: cover; flex-shrink: 0; background: #1a1a1a;
+    }
+    .feed-meta { min-width: 0; }
+    .feed-title {
+      font-size: 11px; line-height: 1.35; color: #ccc;
+      display: -webkit-box; -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .feed-section {
+      font-size: 9px; text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--brand-orange); margin-top: 2px; opacity: 0.7;
+    }
+    .feed-spinner { font-size: 11px; color: #333; padding: 4px 0; }
+
+    /* ── Preview ─────────────────────────────────────── */
+    .preview-area {
+      flex: 1;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: flex-start;
+      padding: 36px 32px; gap: 14px;
+    }
+    .preview-hint {
+      font-size: 10px; text-transform: uppercase;
+      letter-spacing: 0.12em; color: #2a2a2a;
+    }
+
+    /* Wrapper clips and handles drag */
+    #cardWrapper {
+      width: 432px; height: 540px;  /* 1080×1350 × 0.4 */
+      position: relative; overflow: hidden;
+      cursor: grab;
+      border-radius: 3px;
+      box-shadow: 0 28px 72px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.04);
+      user-select: none; flex-shrink: 0;
+    }
+    #cardWrapper:active { cursor: grabbing; }
+
+    /* ── The card at actual 1080×1350 ────────────────── */
+    #card {
+      width: 1080px; height: 1350px;
+      transform: scale(0.4); transform-origin: top left;
+      position: relative; background: #111; overflow: hidden;
+    }
+
+    .card-bg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: 50% 50%;
+      display: none;               /* hidden until src is set */
+    }
+
+    .card-gradient {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(0,0,0,0.28) 0%, rgba(0,0,0,0.02) 38%,
+        rgba(0,0,0,0.02) 58%, rgba(0,0,0,0.52) 100%
+      );
+      pointer-events: none;
+    }
+
+    .card-body {
+      position: absolute; inset: 0;
+      padding: 64px; pointer-events: none;
+    }
+
+    /* Section badge */
+    .card-section-wrap { margin-bottom: 20px; line-height: 1; }
+    .card-section {
+      display: inline;
+      font-family: var(--font-sans);
+      font-size: 30px; font-weight: 700; letter-spacing: 0.01em;
+      color: var(--brand-orange);
+      background: #000;
+      padding: 6px 13px;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+
+    /* Headline */
+    .card-headline {
+      display: inline;
+      font-family: var(--font-serif);
+      font-size: 74px; font-weight: 700; line-height: 1.18;
+      color: #fff; background: #000;
+      padding: 5px 13px;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+      letter-spacing: -0.015em;
+    }
+
+    /* Logo — PNG image, bottom-right */
+    .card-logo {
+      position: absolute;
+      bottom: 54px; right: 60px;
+      height: 52px; width: auto;
+      pointer-events: none;
+      opacity: 0.97;
+    }
+  </style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div>
+      <img src="https://raw.githubusercontent.com/hackejandro/euobsimage/main/logo_observer.png" class="brand-logo" alt="euobserver">
+      <div class="brand-sub">Social Card Generator</div>
+    </div>
+
+    <hr>
+
+    <div>
+      <div class="section-label">Latest articles</div>
+      <div id="feedList" class="feed-list">
+        <div class="feed-spinner" id="feedSpinner">Loading feed…</div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div>
+      <div class="section-label">Or paste a URL</div>
+      <div class="field">
+        <label>Article URL</label>
+        <input type="url" id="urlInput" placeholder="https://euobserver.com/…">
+      </div>
+      <button class="btn btn-red" onclick="fetchArticle()">↓ Fetch Article</button>
+      <div id="fetchStatus" class="status"></div>
+    </div>
+
+    <hr>
+
+    <div>
+      <div class="section-label">Card content</div>
+      <div class="field">
+        <label>Section</label>
+        <input type="text" id="sectionInput" value="EU Politics" oninput="liveUpdate()">
+      </div>
+      <div class="field">
+        <label>Headline</label>
+        <textarea id="headlineInput" oninput="liveUpdate()">How Orbán could still rule even if Tisza wins: five scenarios for the Hungarian election</textarea>
+      </div>
+      <div class="field">
+        <label>Image URL</label>
+        <input type="text" id="imageInput" placeholder="Paste or fetched automatically…" oninput="updateImageFromInput()">
+      </div>
+      <div class="row-2">
+        <div class="field">
+          <label>Headline px</label>
+          <input type="number" id="fontSizeInput" value="74" min="32" max="120" oninput="updateFontSize()">
+        </div>
+        <div class="field">
+          <label>Section px</label>
+          <input type="number" id="sectionSizeInput" value="30" min="18" max="56" oninput="updateFontSize()">
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div>
+      <div class="section-label">Export</div>
+      <button class="btn btn-green" id="downloadBtn" onclick="downloadCard()">↓ Download PNG (1080 × 1350)</button>
+      <button class="btn btn-ghost" onclick="resetPan()">⌖ Center image</button>
+      <p class="tip" style="margin-top:10px;">Drag the preview to reposition the background image.</p>
+    </div>
+  </aside>
+
+  <!-- ── Preview ── -->
+  <main class="preview-area">
+    <div class="preview-hint">preview · drag to pan · download when ready</div>
+
+    <div id="cardWrapper">
+      <div id="card">
+        <img class="card-bg" id="cardBg" src="" alt="">
+        <div class="card-gradient"></div>
+        <div class="card-body">
+          <div class="card-section-wrap">
+            <span class="card-section" id="cardSection">EU Politics</span>
+          </div>
+          <div>
+            <span class="card-headline" id="cardHeadline">How Orbán could still rule even if Tisza wins: five scenarios for the Hungarian election</span>
+          </div>
+        </div>
+        <img class="card-logo" src="https://raw.githubusercontent.com/hackejandro/euobsimage/main/logo_observer.png" alt="euobserver">
+      </div>
+    </div>
+  </main>
+
+</div>
+
+<script>
+  const SCALE = 0.4;
+  let bgX = 50, bgY = 50;
+  let isDragging = false, lastX = 0, lastY = 0;
+  let currentImageUrl = '';
+  const LOGO_URL = 'https://raw.githubusercontent.com/hackejandro/euobsimage/main/logo_observer.png';
+
+  async function fetchViaProxy(url) {
+    const proxies = [
+      `https://images.weserv.nl/?url=${encodeURIComponent(url)}`,
+      `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+    ];
+    for (const proxyUrl of proxies) {
+      try {
+        const r = await fetch(proxyUrl);
+        if (!r.ok) continue;
+        const blob = await r.blob();
+        if (blob.size > 0) return blob;
+      } catch {}
+    }
+    return null;
+  }
+
+  function blobToDataUrl(blob) {
+    return new Promise((res, rej) => {
+      const fr = new FileReader();
+      fr.onload = () => res(fr.result);
+      fr.onerror = rej;
+      fr.readAsDataURL(blob);
+    });
+  }
+
+  async function loadProxiedImage(url) {
+    const blob = await fetchViaProxy(url);
+    if (!blob) return null;
+    const dataUrl = await blobToDataUrl(blob);
+    return new Promise((res) => {
+      const img = new Image();
+      img.onload  = () => res(img);
+      img.onerror = () => res(null);
+      img.src = dataUrl;
+    });
+  }
+
+  function wrapText(ctx, text, maxWidth) {
+    const words = text.split(' ');
+    const lines = [];
+    let line = '';
+    for (const word of words) {
+      const test = line ? `${line} ${word}` : word;
+      if (ctx.measureText(test).width > maxWidth && line) {
+        lines.push(line);
+        line = word;
+      } else {
+        line = test;
+      }
+    }
+    if (line) lines.push(line);
+    return lines;
+  }
+
+  const cardBg      = document.getElementById('cardBg');
+  const cardWrapper = document.getElementById('cardWrapper');
+
+  // ── Pan ───────────────────────────────────────────────────────
+  const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+
+  function applyPan() {
+    cardBg.style.objectPosition = `${bgX}% ${bgY}%`;
+  }
+
+  cardWrapper.addEventListener('mousedown',  e => { isDragging=true; lastX=e.clientX; lastY=e.clientY; e.preventDefault(); });
+  document.addEventListener('mousemove',     e => {
+    if (!isDragging) return;
+    bgX = clamp(bgX - (e.clientX-lastX)*0.18, 0, 100);
+    bgY = clamp(bgY - (e.clientY-lastY)*0.18, 0, 100);
+    lastX=e.clientX; lastY=e.clientY; applyPan();
+  });
+  document.addEventListener('mouseup',       () => isDragging=false);
+  cardWrapper.addEventListener('touchstart', e => { isDragging=true; lastX=e.touches[0].clientX; lastY=e.touches[0].clientY; }, {passive:true});
+  document.addEventListener('touchmove',     e => {
+    if (!isDragging) return;
+    bgX = clamp(bgX-(e.touches[0].clientX-lastX)*0.18, 0, 100);
+    bgY = clamp(bgY-(e.touches[0].clientY-lastY)*0.18, 0, 100);
+    lastX=e.touches[0].clientX; lastY=e.touches[0].clientY; applyPan();
+  }, {passive:true});
+  document.addEventListener('touchend', () => isDragging=false);
+
+  function resetPan() { bgX=50; bgY=50; applyPan(); }
+
+  // ── Live update ───────────────────────────────────────────────
+  function liveUpdate() {
+    document.getElementById('cardSection').textContent  = document.getElementById('sectionInput').value;
+    document.getElementById('cardHeadline').textContent = document.getElementById('headlineInput').value;
+  }
+
+  function updateFontSize() {
+    document.getElementById('cardHeadline').style.fontSize =
+      (parseInt(document.getElementById('fontSizeInput').value) || 74) + 'px';
+    document.getElementById('cardSection').style.fontSize =
+      (parseInt(document.getElementById('sectionSizeInput').value) || 30) + 'px';
+  }
+
+  function setImage(url) {
+    currentImageUrl = url;
+    // Proxy through weserv.nl so the live preview loads even with hotlink protection
+    cardBg.src = `https://images.weserv.nl/?url=${encodeURIComponent(url)}`;
+    cardBg.style.display = 'block';
+    resetPan();
+  }
+
+  function updateImageFromInput() {
+    const url = document.getElementById('imageInput').value.trim();
+    if (url) setImage(url);
+  }
+
+
+  // ── Fetch article (tries multiple CORS proxies) ──────────────
+  async function fetchHtml(url) {
+    const proxies = [
+      { u: `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`, json: true },
+      { u: `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`, json: false },
+      { u: `https://corsproxy.io/?${encodeURIComponent(url)}`, json: false },
+    ];
+    for (const p of proxies) {
+      try {
+        const r = await fetch(p.u);
+        if (!r.ok) continue;
+        const html = p.json ? (await r.json()).contents : await r.text();
+        if (html && html.length > 200) return html;
+      } catch {}
+    }
+    return null;
+  }
+
+  async function fetchArticle() {
+    const url = document.getElementById('urlInput').value.trim();
+    const statusEl = document.getElementById('fetchStatus');
+    if (!url) { statusEl.textContent='Enter a URL first.'; statusEl.className='status err'; return; }
+    statusEl.textContent='Fetching…'; statusEl.className='status';
+    try {
+      const contents = await fetchHtml(url);
+      if (!contents) throw new Error('All proxies failed');
+      const doc = new DOMParser().parseFromString(contents, 'text/html');
+
+      const ogImage = doc.querySelector('meta[property="og:image"]')?.content
+                   || doc.querySelector('meta[name="twitter:image"]')?.content || '';
+
+      let title = doc.querySelector('meta[property="og:title"]')?.content
+                || doc.querySelector('h1')?.textContent?.trim() || '';
+      title = title.replace(/\s*[|–—]+\s*EUobserver.*/i,'').trim();
+
+      let section = doc.querySelector('meta[property="article:section"]')?.content
+                 || doc.querySelector('meta[name="section"]')?.content || '';
+      if (!section) {
+        const known = ['EU & The World','EU Politics','Investigation','Green Deal',
+          'Democracy','Justice','Economic Affairs','Science & Tech',
+          'Social Affairs','Migration & Asylum','Defence'];
+        for (const s of known) if (contents.includes(s)) { section=s; break; }
+      }
+      if (!section) section = 'EU Politics';
+
+      if (title)   document.getElementById('headlineInput').value = title;
+      document.getElementById('sectionInput').value = section;
+      if (ogImage) {
+        document.getElementById('imageInput').value = ogImage;
+        setImage(ogImage);
+      }
+      liveUpdate();
+      statusEl.textContent='✓ Loaded'; statusEl.className='status ok';
+    } catch {
+      statusEl.textContent='Fetch failed — fill in manually.';
+      statusEl.className='status err';
+    }
+  }
+
+  // ── RSS Feed ──────────────────────────────────────────────────
+  const RSS_URL = 'https://euobserver.com/feed/';
+  let feedItems = [];
+
+  async function loadFeed() {
+    const spinner = document.getElementById('feedSpinner');
+    try {
+      const xml = await fetchHtml(RSS_URL);
+      if (!xml) throw new Error();
+      const doc = new DOMParser().parseFromString(xml, 'text/xml');
+      const items = doc.querySelectorAll('item');
+      feedItems = [];
+      items.forEach(item => {
+        const title = item.querySelector('title')?.textContent?.trim() || '';
+        const link  = item.querySelector('link')?.textContent?.trim() || '';
+        // Try to get image from media:content, enclosure, or description
+        const media = item.getElementsByTagNameNS('*', 'content')[0];
+        let img = media?.getAttribute('url') || '';
+        if (!img) {
+          const enc = item.querySelector('enclosure');
+          img = enc?.getAttribute('url') || '';
+        }
+        if (!img) {
+          // Try to pull first <img> from description CDATA
+          const desc = item.querySelector('description')?.textContent || '';
+          const m = desc.match(/<img[^>]+src=["']([^"']+)/);
+          if (m) img = m[1];
+        }
+        // Category / section
+        const cats = item.querySelectorAll('category');
+        let section = '';
+        if (cats.length) section = cats[0].textContent?.trim() || '';
+
+        if (title && link) feedItems.push({ title, link, img, section });
+      });
+      renderFeed();
+    } catch {
+      spinner.textContent = 'Feed unavailable';
+    }
+  }
+
+  function renderFeed() {
+    const container = document.getElementById('feedList');
+    if (!feedItems.length) { container.innerHTML = '<div class="feed-spinner">No articles found</div>'; return; }
+    container.innerHTML = feedItems.slice(0, 15).map((item, i) => `
+      <div class="feed-item" data-idx="${i}" onclick="selectFeedItem(${i})">
+        ${item.img ? `<img class="feed-thumb" src="https://images.weserv.nl/?url=${encodeURIComponent(item.img)}&w=88&h=88&fit=cover" alt="">` : ''}
+        <div class="feed-meta">
+          <div class="feed-title">${escHtml(item.title)}</div>
+          ${item.section ? `<div class="feed-section">${escHtml(item.section)}</div>` : ''}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  async function selectFeedItem(idx) {
+    const item = feedItems[idx];
+    if (!item) return;
+    // Highlight
+    document.querySelectorAll('.feed-item').forEach(el => el.classList.remove('active'));
+    document.querySelector(`.feed-item[data-idx="${idx}"]`)?.classList.add('active');
+    // Fill fields
+    document.getElementById('urlInput').value = item.link;
+    document.getElementById('headlineInput').value = item.title;
+    if (item.section) document.getElementById('sectionInput').value = item.section;
+    liveUpdate();
+    // Try to load the OG image by fetching the article page (better quality image)
+    const statusEl = document.getElementById('fetchStatus');
+    statusEl.textContent = 'Loading article…'; statusEl.className = 'status';
+    try {
+      const html = await fetchHtml(item.link);
+      if (html) {
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const ogImg = doc.querySelector('meta[property="og:image"]')?.content
+                   || doc.querySelector('meta[name="twitter:image"]')?.content || '';
+        const ogTitle = doc.querySelector('meta[property="og:title"]')?.content || '';
+        if (ogTitle) {
+          const clean = ogTitle.replace(/\s*[|–—]+\s*EUobserver.*/i,'').trim();
+          if (clean) { document.getElementById('headlineInput').value = clean; liveUpdate(); }
+        }
+        let section = doc.querySelector('meta[property="article:section"]')?.content || '';
+        if (section) { document.getElementById('sectionInput').value = section; liveUpdate(); }
+        const imgUrl = ogImg || item.img;
+        if (imgUrl) {
+          document.getElementById('imageInput').value = imgUrl;
+          setImage(imgUrl);
+        }
+      } else if (item.img) {
+        // Fallback: use RSS image
+        document.getElementById('imageInput').value = item.img;
+        setImage(item.img);
+      }
+      statusEl.textContent = '✓ Ready'; statusEl.className = 'status ok';
+    } catch {
+      if (item.img) { document.getElementById('imageInput').value = item.img; setImage(item.img); }
+      statusEl.textContent = '✓ Loaded from feed'; statusEl.className = 'status ok';
+    }
+  }
+
+  // Load feed on page load
+  loadFeed();
+
+  // ── Download (Canvas API) ──────────────────────────────────────
+  async function downloadCard() {
+    const statusEl = document.getElementById('fetchStatus');
+    const btn = document.getElementById('downloadBtn');
+    statusEl.textContent = 'Fetching image…'; statusEl.className = 'status';
+    btn.disabled = true;
+
+    try {
+      const W = 1080, H = 1350;
+      const canvas = document.createElement('canvas');
+      canvas.width = W; canvas.height = H;
+      const ctx = canvas.getContext('2d');
+
+      // Background
+      ctx.fillStyle = '#111';
+      ctx.fillRect(0, 0, W, H);
+
+      if (currentImageUrl) {
+        const img = await loadProxiedImage(currentImageUrl);
+        if (img) {
+          const scale = Math.max(W / img.naturalWidth, H / img.naturalHeight);
+          const sw = img.naturalWidth  * scale;
+          const sh = img.naturalHeight * scale;
+          ctx.drawImage(img, -((sw - W) * bgX / 100), -((sh - H) * bgY / 100), sw, sh);
+        }
+      }
+
+      // Gradient overlay — matches CSS linear-gradient(160deg, ...)
+      const angleRad = 160 * Math.PI / 180;
+      const gdx = Math.sin(angleRad);          // ≈  0.342
+      const gdy = -Math.cos(angleRad);         // ≈  0.940
+      const halfLen = Math.abs(W / 2 * gdx) + Math.abs(H / 2 * gdy);
+      const grad = ctx.createLinearGradient(
+        W / 2 - gdx * halfLen, H / 2 - gdy * halfLen,
+        W / 2 + gdx * halfLen, H / 2 + gdy * halfLen
+      );
+      grad.addColorStop(0,    'rgba(0,0,0,0.28)');
+      grad.addColorStop(0.38, 'rgba(0,0,0,0.02)');
+      grad.addColorStop(0.58, 'rgba(0,0,0,0.02)');
+      grad.addColorStop(1,    'rgba(0,0,0,0.52)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W, H);
+
+      await document.fonts.ready;
+      const PAD = 64;
+
+      // Draw text with per-line black box (mirrors CSS box-decoration-break: clone).
+      // Each box spans lineH + 2*padY so adjacent lines overlap by 2*padY.
+      // Returns { cy, boxBottom } where boxBottom is the visual bottom of the last box.
+      function drawBoxedText(text, fontSpec, textColor, boxColor, startX, startY, maxW, lineH, padX, padY) {
+        ctx.font = fontSpec;
+        ctx.textBaseline = 'alphabetic';
+        const lines = wrapText(ctx, text, maxW);
+        const m = ctx.measureText('Mg');
+        const asc  = m.actualBoundingBoxAscent  || lineH * 0.75;
+        const desc = m.actualBoundingBoxDescent || lineH * 0.18;
+        const halfLead = Math.max(0, (lineH - asc - desc) / 2);
+        let cy = startY;
+        let lastBoxBottom = startY;
+        for (const line of lines) {
+          const tw = ctx.measureText(line).width;
+          const boxTop = cy - asc - halfLead - padY;
+          const boxH   = lineH + padY * 2;
+          ctx.fillStyle = boxColor;
+          ctx.fillRect(startX - padX, boxTop, tw + padX * 2, boxH);
+          ctx.fillStyle = textColor;
+          ctx.fillText(line, startX, cy);
+          lastBoxBottom = boxTop + boxH;
+          cy += lineH;
+        }
+        return { cy, boxBottom: lastBoxBottom };
+      }
+
+      // Section label
+      const sSize = parseInt(document.getElementById('sectionSizeInput').value) || 30;
+      const sectionResult = drawBoxedText(
+        document.getElementById('sectionInput').value,
+        `700 ${sSize}px "Geist",Lato,system-ui,sans-serif`,
+        'rgb(240,82,60)', '#000',
+        PAD, PAD + sSize, W - PAD * 2, sSize * 1.4, 13, 6
+      );
+
+      // Headline — positioned so its first box starts ~8px below the section box
+      const hSize = parseInt(document.getElementById('fontSizeInput').value) || 74;
+      const hFont = `700 ${hSize}px "freight-display-pro","freight-text-pro",Lora,Georgia,serif`;
+      const hLineH = hSize * 1.18;
+      const hPadY = 5;
+      // Pre-measure to compute where the first headline baseline needs to sit
+      ctx.font = hFont;
+      const hm = ctx.measureText('Mg');
+      const hAsc  = hm.actualBoundingBoxAscent  || hLineH * 0.75;
+      const hDesc = hm.actualBoundingBoxDescent || hLineH * 0.18;
+      const hHalfLead = Math.max(0, (hLineH - hAsc - hDesc) / 2);
+      // baseline = boxTop + asc + halfLead + padY, and boxTop = sectionBoxBottom + gap
+      const hStartY = sectionResult.boxBottom + 8 + hAsc + hHalfLead + hPadY;
+
+      drawBoxedText(
+        document.getElementById('headlineInput').value,
+        hFont, '#fff', '#000',
+        PAD, hStartY, W - PAD * 2, hLineH, 13, hPadY
+      );
+
+      // Logo
+      statusEl.textContent = 'Adding logo…';
+      const logoImg = await loadProxiedImage(LOGO_URL);
+      if (logoImg) {
+        const logoH = 52;
+        const logoW = logoImg.naturalWidth * (logoH / logoImg.naturalHeight);
+        ctx.drawImage(logoImg, W - PAD - logoW, H - 54 - logoH, logoW, logoH);
+      }
+
+      const a = document.createElement('a');
+      a.download = 'euobserver-social.png';
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+      statusEl.textContent = '✓ Downloaded!'; statusEl.className = 'status ok';
+
+    } catch (e) {
+      console.error('Download error:', e);
+      statusEl.textContent = 'Export failed.'; statusEl.className = 'status err';
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  liveUpdate();
+</script>
