@@ -609,7 +609,7 @@ font-display:swap;font-style:normal;font-weight:600;font-stretch:normal;
   function renderFeed() {
     const container = document.getElementById('feedList');
     if (!feedItems.length) { container.innerHTML = '<div class="feed-spinner">No articles found</div>'; return; }
-    container.innerHTML = feedItems.slice(0, 15).map((item, i) => `
+    container.innerHTML = feedItems.slice(0, 5).map((item, i) => `
       <div class="feed-item" data-idx="${i}" onclick="selectFeedItem(${i})">
         ${item.img ? `<img class="feed-thumb" src="https://images.weserv.nl/?url=${encodeURIComponent(item.img)}&w=88&h=88&fit=cover" alt="">` : ''}
         <div class="feed-meta">
