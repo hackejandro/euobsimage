@@ -765,7 +765,7 @@ font-display:swap;font-style:normal;font-weight:600;font-stretch:normal;
       const hDesc = hm.actualBoundingBoxDescent || hLineH * 0.18;
       const hHalfLead = Math.max(0, (hLineH - hAsc - hDesc) / 2);
       // baseline = boxTop + asc + halfLead + padY, and boxTop = sectionBoxBottom + gap
-      const hStartY = sectionResult.boxBottom + 8 + hAsc + hHalfLead + hPadY;
+      const hStartY = sectionResult.boxBottom + hAsc + hHalfLead + hPadY;
 
       drawBoxedText(
         document.getElementById('headlineInput').value,
